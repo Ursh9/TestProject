@@ -13,7 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState, useRef} from 'react';
-import fonts from './fonts';
+import fonts from '../common/fonts';
 import CustomBtn from './components/customBtn';
 
 const Home = props => {
