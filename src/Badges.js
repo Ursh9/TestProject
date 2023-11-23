@@ -50,53 +50,13 @@ const Badges = () => {
   const RenderList = item => {
     return (
       <View style={{flex: 1}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            backgroundColor: 'white',
-            marginVertical: 10,
-            marginHorizontal: 20,
-          }}>
-          <View
-            style={{
-              width: '25%',
-              paddingVertical: 10,
-            }}>
-            <Image
-              source={item.image}
-              style={{height: 60, width: 60, alignSelf: 'center'}}
-            />
+        <View style={styles.renderlistV}>
+          <View style={styles.rImge}>
+            <Image source={item.image} style={styles.rImage1} />
           </View>
-          <View
-            style={{
-              width: '75%',
-              backgroundColor: 'white',
-              paddingVertical: 10,
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 14,
-                color: '#333333',
-                fontFamily: fonts.Montserrat,
-                marginRight: 50,
-                // textAlign: 'center',
-                marginBottom: 10,
-              }}>
-              {item.heading}
-            </Text>
-            <Text
-              style={{
-                fontWeight: '500',
-                fontSize: 14,
-                color: '#727682',
-                fontFamily: fonts.Montserrat,
-                marginRight: 50,
-                // textAlign: 'center',
-              }}>
-              {item.desc}
-            </Text>
+          <View style={styles.rTextV}>
+            <Text style={styles.hText}>{item.heading}</Text>
+            <Text style={styles.textDes}>{item.desc}</Text>
           </View>
         </View>
       </View>
@@ -105,11 +65,45 @@ const Badges = () => {
   return (
     <View style={{height: '100%', width: '100%'}}>
       <FlatList data={data} renderItem={item => RenderList(item.item)} />
-      {/* <RenderList /> */}
     </View>
   );
 };
 
 export default Badges;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  renderlistV: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    marginVertical: 10,
+    marginHorizontal: 20,
+  },
+  rImge: {
+    width: '25%',
+    paddingVertical: 10,
+  },
+  rImage1: {height: 60, width: 60, alignSelf: 'center'},
+  rTextV: {
+    width: '75%',
+    backgroundColor: 'white',
+    paddingVertical: 10,
+    justifyContent: 'center',
+  },
+  hText: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: '#333333',
+    fontFamily: fonts.Montserrat,
+    marginRight: 50,
+    // textAlign: 'center',
+    marginBottom: 10,
+  },
+  textDes: {
+    fontWeight: '500',
+    fontSize: 14,
+    color: '#727682',
+    fontFamily: fonts.Montserrat,
+    marginRight: 50,
+    // textAlign: 'center',
+  },
+});

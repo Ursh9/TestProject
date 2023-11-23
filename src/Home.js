@@ -12,53 +12,14 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import React, {useState, useRef} from 'react';
 import fonts from './fonts';
 import CustomBtn from './components/customBtn';
-import SimplePicker from 'react-native-simple-picker';
-import NumberPlease from 'react-native-number-please';
-import RNPickerSelect from 'react-native-picker-select';
-import {Picker} from '@react-native-picker/picker';
-// import {Picker, DatePicker} from 'react-native-wheel-pick';
+
 const Home = props => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
-  const initialValues = [{id: 'pizza', value: 3}];
-  const [pizzas, setPizzas] = useState(initialValues);
-  const pizzaNumbers = [{id: 'pizza', label: '🍕', min: 0, max: 99}];
-  const [selectedValue, setSelectedValue] = useState('java');
-  // const [selectedNumber, setSelectedNumber] = useState(null);
   const [selected, setSelected] = useState('');
   const [numbers, setNumbers] = useState([]);
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const [selectedNumber, setSelectedNumber] = useState(0);
-  const handleScroll = Animated.event(
-    [{nativeEvent: {contentOffset: {y: scrollY}}}],
-    {useNativeDriver: false},
-  );
-
-  const handleItemPress = index => {
-    // Calculate the selected number based on the index
-    const newSelectedNumber = index;
-    setSelectedNumber(newSelectedNumber);
-
-    // Scroll to the selected item
-    scrollViewRef.current.scrollTo({y: itemHeight * index, animated: true});
-  };
-
-  const itemHeight = 50; // Adjust the item height as needed
-  const itemCount = 100; // Adjust the number of items as needed
-  const scrollViewRef = useRef();
-
-  if (numbers.length === 0) {
-    const newNumbers = [];
-    for (let i = 0; i <= 100; i++) {
-      newNumbers.push(i);
-    }
-    setNumbers(newNumbers);
-  }
-
   const openModal = item => {
     // console.log('first');
     setSelected(item);
@@ -67,24 +28,10 @@ const Home = props => {
   const closeModal = () => {
     setModalVisible(false);
   };
-  const dataSource = ['1', '2', '3', '4', '5', '6'];
-  const ref = React.useRef();
-  const [index, setIndex] = React.useState(0);
-  const onValueChange = (data, selectedIndex) => {
-    setIndex(selectedIndex);
-  };
 
-  const options = ['Option1', 'Option2', 'Option3'];
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View
-        style={{
-          flex: 1,
-          paddingHorizontal: 10,
-          paddingTop: 15,
-          backgroundColor: '#fff',
-          paddingHorizontal: 20,
-        }}>
+      <View style={styles.safeAreaStyle}>
         <Text style={styles.headText}>Today’s Games</Text>
         <View style={styles.shadowContainer}>
           <View style={styles.card}>
@@ -92,79 +39,28 @@ const Home = props => {
               source={require('./assets/purpleBG.png')}
               style={{width: '100%', height: 104}}>
               <View style={{padding: 10}}>
-                <View
-                  style={{
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                  }}>
+                <View style={styles.pRow}>
                   <View style={{flexDirection: 'row'}}>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontFamily: '600',
-                        color: '#D2BAF5',
-                        fontFamily: fonts.Montserrat,
-                      }}>
-                      Under or Over
-                    </Text>
+                    <Text style={styles.underText}>Under or Over</Text>
                     <Image
                       source={require('./assets/iIcon.png')}
-                      style={{
-                        height: 13,
-                        width: 13,
-                        alignSelf: 'center',
-                        marginLeft: 8,
-                      }}
+                      style={styles.iIconStyle}
                     />
                   </View>
                   <View style={{flexDirection: 'row'}}>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontFamily: '600',
-                        color: '#B296DC',
-                        fontFamily: fonts.Montserrat,
-                      }}>
-                      Starting in
-                    </Text>
+                    <Text style={styles.startingStyle}>Starting in</Text>
                     <Image
                       source={require('./assets/Clock.png')}
-                      style={{
-                        height: 14,
-                        width: 14,
-                        alignSelf: 'center',
-                        marginHorizontal: 8,
-                      }}
+                      style={styles.timerImg}
                     />
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: '600',
-                        color: '#D2BAF5',
-                        fontFamily: fonts.Montserrat,
-                      }}>
-                      03:23:12
-                    </Text>
+                    <Text style={styles.timerTxt}>03:23:12</Text>
                   </View>
                 </View>
                 <View style={{marginTop: 15}}>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: '600',
-                      color: '#D2BAF5',
-                      fontFamily: fonts.Montserrat,
-                    }}>
+                  <Text style={styles.bitUnd}>
                     Bitcoin price will be under{' '}
                   </Text>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 'bold',
-                      color: '#D2BAF5',
-                      fontFamily: fonts.Montserrat,
-                    }}>
-                    {' '}
+                  <Text style={styles.pText}>
                     $24,524{' '}
                     <Text style={{fontWeight: '400'}}>
                       at 7 a ET on 22nd Jan’21
@@ -173,111 +69,27 @@ const Home = props => {
                 </View>
               </View>
             </ImageBackground>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginTop: 15,
-                marginHorizontal: 15,
-              }}>
+            <View style={styles.PPView}>
               <View>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '500',
-                    fontFamily: fonts.Montserrat,
-                    color: '#B5C0C8',
-                  }}>
-                  Prize Pool
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: '600',
-                    color: '#333333',
-                    marginTop: 8,
-                  }}>
-                  $12,000
-                </Text>
+                <Text style={styles.PPText}>Prize Pool</Text>
+                <Text style={styles.Dtext}>$12,000</Text>
               </View>
               <View>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '500',
-                    fontFamily: fonts.Montserrat,
-                    color: '#B5C0C8',
-                  }}>
-                  Under
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: '600',
-                    color: '#333333',
-                    marginTop: 8,
-                  }}>
-                  3.25x
-                </Text>
+                <Text style={styles.PPText}>Under</Text>
+                <Text style={styles.Dtext}>3.25x</Text>
               </View>
               <View>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '500',
-                    fontFamily: fonts.Montserrat,
-                    color: '#B5C0C8',
-                  }}>
-                  Over
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: '600',
-                    color: '#333333',
-                    marginTop: 8,
-                  }}>
-                  1.25x
-                </Text>
+                <Text style={styles.PPText}>Over</Text>
+                <Text style={styles.Dtext}>1.25x</Text>
               </View>
               <View>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '500',
-                    fontFamily: fonts.Montserrat,
-                    color: '#B5C0C8',
-                  }}>
-                  Entry Fees
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: '600',
-                    color: '#333333',
-                    marginTop: 8,
-                    alignSelf: 'center',
-                  }}>
-                  5
-                </Text>
+                <Text style={styles.PPText}>Entry Fees</Text>
+                <Text style={[styles.Dtext, {alignSelf: 'center'}]}>5</Text>
               </View>
             </View>
             <View style={{padding: 10}}>
-              <Text
-                style={{
-                  fontWeight: '600',
-                  fontSize: 14,
-                  color: '#727682',
-                  fontFamily: fonts.Montserrat,
-                }}>
-                What’s your prediction?
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 10,
-                }}>
+              <Text style={styles.PredText}>What’s your prediction?</Text>
+              <View style={styles.BtnView}>
                 <CustomBtn
                   OnPress={() => openModal('Under')}
                   LeftIcon={require('./assets/DwnArrow.png')}
@@ -293,120 +105,35 @@ const Home = props => {
                 />
               </View>
             </View>
-            <View
-              style={{
-                // backgroundColor: '#F6F3FA',
-                padding: 10,
-                flexDirection: 'row',
-                // flex: 1,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  // backgroundColor: 'red',
-                  flex: 1,
-                }}>
+            <View style={styles.BtmView}>
+              <View style={styles.innerbtmView}>
                 <View style={{flexDirection: 'row'}}>
                   <Image
                     source={require('./assets/profile.png')}
                     style={{alignSelf: 'center', marginRight: 10}}
                   />
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 'bold',
-                      color: '#727682',
-                      fontFamily: fonts.Montserrat,
-                    }}>
-                    355 Players
-                  </Text>
+                  <Text style={styles.playerText}>355 Players</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Image
                     source={require('./assets/mnt.png')}
                     style={{alignSelf: 'center', marginRight: 10}}
                   />
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 'bold',
-                      color: '#727682',
-                      fontFamily: fonts.Montserrat,
-                    }}>
-                    View chart
-                  </Text>
+                  <Text style={styles.viewCartText}>View chart</Text>
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                backgroundColor: '#2DABAD',
-                height: 10,
-                width: '100%',
-                borderRadius: 10,
-                marginTop: 10,
-              }}>
-              <View
-                style={{
-                  position: 'absolute',
-                  backgroundColor: '#FE4190',
-                  width: '70%',
-                  height: 10,
-                  borderTopLeftRadius: 10,
-                  borderBottomLeftRadius: 10,
-                }}></View>
+            <View style={styles.bar1}>
+              <View style={styles.bar2}></View>
             </View>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              // flex: 1,
-              // backgroundColor: 'red',
-              marginTop: 10,
-            }}>
-            <Text style={{color: '#B5C0C8', fontWeight: '500', fontSize: 12}}>
-              232 predicted under
-            </Text>
-            <Text style={{color: '#B5C0C8', fontWeight: '500', fontSize: 12}}>
-              123 predicted over
-            </Text>
+          <View style={styles.predView}>
+            <Text style={styles.predText}>232 predicted under</Text>
+            <Text style={styles.predText}>123 predicted over</Text>
           </View>
         </View>
       </View>
-      {/* <Modal
-        transparent
-        animationType="slide"
-        // visible={isModalVisible}
-        visible={isModalVisible}
-        onRequestClose={closeModal}>
-        <TouchableOpacity style={styles.modalContainer} onPress={closeModal}>
-          <TouchableOpacity disabled={true} style={styles.modalContent}>
-            <Text style={{fontWeight: '600', fontSize: 16, color: '#333333'}}>
-              Your Prediction is Under
-            </Text>
-            <Text
-              style={{
-                fontWeight: '600',
-                fontSize: 12,
-                color: '#727682',
-                marginTop: 20,
-              }}>
-              Entry tickets
-            </Text>
 
-       
-
-            <SimplePicker
-              ref={pickerRef}
-              options={options}
-              // onSubmit={handlePickerSubmit}
-            />
-           
-          </TouchableOpacity>
-        </TouchableOpacity>
-      </Modal> */}
       <Modal
         transparent
         animationType="slide"
@@ -422,128 +149,27 @@ const Home = props => {
             onPress={e => {
               e.stopPropagation();
             }}>
-            <Text style={{fontWeight: '600', fontSize: 16, color: '#333333'}}>
-              Your Prediction is {selected}
-            </Text>
-            <Text
-              style={{
-                fontWeight: '600',
-                fontSize: 12,
-                color: '#727682',
-                marginTop: 20,
-              }}>
-              Entry tickets
-            </Text>
-            <View style={[styles.container, {backgroundColor: 'red'}]}>
-              <ScrollView
-                ref={scrollViewRef}
-                onScroll={handleScroll}
-                showsVerticalScrollIndicator={false}
-                snapToInterval={itemHeight}
-                snapToAlignment="start">
-                {Array.from({length: itemCount}, (_, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={[
-                      styles.item,
-                      {
-                        backgroundColor:
-                          index === selectedNumber ? 'lightblue' : 'white',
-                      },
-                    ]}
-                    onPress={() => handleItemPress(index)}>
-                    <Text>{index}</Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-            </View>
-            {/* <Picker
-              style={{backgroundColor: 'white', width: 300, height: 215}}
-              selectedValue="item0"
-              pickerData={numbers}
-              onValueChange={value => {
-                console.log(value);
-              }}
-            /> */}
-            {/* <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: 'black', fontSize: 25}}>
-                Select a number:
-              </Text>
-              <Picker
-                selectedValue={selectedNumber}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectedNumber(itemValue)
-                }
-                style={{height: 200, width: 150}}>
-                {Array.from({length: 100}, (_, index) => (
-                  <Picker.Item
-                    key={index}
-                    label={`${index + 1}`}
-                    value={`${index + 1}`}
-                  />
-                ))}
-              </Picker>
-            </View> */}
+            <Text style={styles.modalTitle}>Your Prediction is {selected}</Text>
+            <Text style={styles.entery}>Entry tickets</Text>
 
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '500',
-                    color: '#B5C0C8',
-                    fontFamily: fonts.Montserrat,
-                  }}>
-                  You can win
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '500',
-                    color: '#03A67F',
-                    fontFamily: fonts.Montserrat,
-                  }}>
-                  $2000
-                </Text>
+                <Text style={styles.uWin}>You can win</Text>
+                <Text style={styles.amtText}>$2000</Text>
               </View>
               <View
                 style={{
                   flexDirection: 'row',
-                  // justifyContent: 'center',
-                  // backgroundColor: 'red',
                 }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '500',
-                    color: '#727682',
-                    fontFamily: fonts.Montserrat,
-                  }}>
-                  Total
-                </Text>
+                <Text style={styles.ttText}>Total</Text>
                 <Image
                   source={require('./assets/Fill3.png')}
                   style={{
                     marginHorizontal: 8,
-                    // alignSelf: 'center',
-                    // height: 10,
-                    // width: 10,
                   }}
                 />
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: '500',
-                    color: '#333333',
-                    fontFamily: fonts.Montserrat,
-                    // textAlign: 'center',
-                    // alignSelf: 'center',
-                    // marginBottom: 10,
-                  }}>
-                  5
-                </Text>
+                <Text style={styles.FIve}>5</Text>
               </View>
             </View>
             <View style={{marginTop: 10}}>
@@ -584,16 +210,6 @@ const styles = StyleSheet.create({
     // padding: 20,
     borderRadius: 4,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  openButton: {
-    fontSize: 20,
-    color: 'blue',
-    marginBottom: 20,
-  },
   modalContainer: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -608,25 +224,163 @@ const styles = StyleSheet.create({
     // borderRadius: 10,
     // alignItems: 'center',
   },
-  modalText: {
-    fontSize: 18,
-    marginBottom: 10,
+
+  safeAreaStyle: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingTop: 15,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
   },
-  closeButton: {
-    color: 'blue',
-    fontSize: 16,
+  pRow: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  underText: {
+    fontSize: 12,
+    fontFamily: '600',
+    color: '#D2BAF5',
+    fontFamily: fonts.Montserrat,
+  },
+  iIconStyle: {
+    height: 13,
+    width: 13,
+    alignSelf: 'center',
+    marginLeft: 8,
+  },
+  startingStyle: {
+    fontSize: 12,
+    fontFamily: '600',
+    color: '#B296DC',
+    fontFamily: fonts.Montserrat,
+  },
+  timerImg: {
+    height: 14,
+    width: 14,
+    alignSelf: 'center',
+    marginHorizontal: 8,
+  },
+  timerTxt: {
+    fontSize: 14,
+    fontFamily: '600',
+    color: '#D2BAF5',
+    fontFamily: fonts.Montserrat,
+  },
+  bitUnd: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#D2BAF5',
+    fontFamily: fonts.Montserrat,
+  },
+  pText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#D2BAF5',
+    fontFamily: fonts.Montserrat,
+  },
+  PPView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 15,
+    marginHorizontal: 15,
+  },
+  PPText: {
+    fontSize: 12,
+    fontWeight: '500',
+    fontFamily: fonts.Montserrat,
+    color: '#B5C0C8',
+  },
+  Dtext: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333333',
+    marginTop: 8,
+  },
+  PredText: {
+    fontWeight: '600',
+    fontSize: 14,
+    color: '#727682',
+    fontFamily: fonts.Montserrat,
+  },
+  BtnView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 10,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  BtmView: {
+    padding: 10,
+    flexDirection: 'row',
   },
-  item: {
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'lightgrey',
+  innerbtmView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // backgroundColor: 'red',
+    flex: 1,
+  },
+  playerText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#727682',
+    fontFamily: fonts.Montserrat,
+  },
+  viewCartText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#727682',
+    fontFamily: fonts.Montserrat,
+  },
+  bar1: {
+    backgroundColor: '#2DABAD',
+    height: 10,
+    width: '100%',
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  bar2: {
+    position: 'absolute',
+    backgroundColor: '#FE4190',
+    width: '70%',
+    height: 10,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  predView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // flex: 1,
+    // backgroundColor: 'red',
+    marginTop: 10,
+  },
+  predText: {color: '#B5C0C8', fontWeight: '500', fontSize: 12},
+  modalTitle: {fontWeight: '600', fontSize: 16, color: '#333333'},
+  entery: {
+    fontWeight: '600',
+    fontSize: 12,
+    color: '#727682',
+    marginTop: 20,
+  },
+  uWin: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#B5C0C8',
+    fontFamily: fonts.Montserrat,
+  },
+  amtText: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#03A67F',
+    fontFamily: fonts.Montserrat,
+  },
+  ttText: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#727682',
+    fontFamily: fonts.Montserrat,
+  },
+  FIve: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#333333',
+    fontFamily: fonts.Montserrat,
   },
 });
