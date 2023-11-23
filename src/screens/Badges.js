@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native';
 import React from 'react';
-import fonts from './fonts';
+import fonts from '../common/fonts';
 
 const Badges = () => {
   const data = [

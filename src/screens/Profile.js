@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
-import fonts from './fonts';
+import fonts from '../common/fonts';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 import GamePlayed from './GamePlayed';
