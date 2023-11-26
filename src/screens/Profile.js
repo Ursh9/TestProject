@@ -13,7 +13,7 @@ import fonts from '../common/fonts';
 import {launchImageLibrary} from 'react-native-image-picker';
 import GamePlayed from './GamePlayed';
 import Badges from './Badges';
-import TopTabs from './components/TopTabs';
+import TopTabs from '../components/TopTabs';
 
 const Profile = () => {
   const [imageSource, setImageSource] = useState(null);
@@ -42,12 +42,12 @@ const Profile = () => {
       <View style={styles.mainView}>
         <View style={styles.view2}>
           <Image
-            source={require('./assets/Iconn.png')}
+            source={require('../assets/Iconn.png')}
             style={{height: 30, width: 29, alignSelf: 'flex-start'}}
           />
           <Text style={{alignSelf: 'center'}}>Profile</Text>
           <Image
-            source={require('./assets/message.png')}
+            source={require('../assets/message.png')}
             style={styles.msgImg}
           />
         </View>
@@ -56,13 +56,13 @@ const Profile = () => {
             source={
               imageSource
                 ? {uri: imageSource}
-                : require('./assets/PrfImage.png')
+                : require('../assets/PrfImage.png')
             }
             style={styles.pImage}
           />
           <TouchableOpacity onPress={() => openImagePicker()}>
             <Image
-              source={require('./assets/upld.png')}
+              source={require('../assets/upld.png')}
               style={styles.upldImg}
             />
           </TouchableOpacity>
@@ -75,13 +75,13 @@ const Profile = () => {
           </Text>
           <View style={styles.lgView}>
             <Image
-              source={require('./assets/Logout.png')}
+              source={require('../assets/Logout.png')}
               style={{width: 18, height: 14, alignSelf: 'center'}}
             />
             <Text style={styles.lgText}>Logout</Text>
           </View>
           <Image
-            source={require('./assets/star.png')}
+            source={require('../assets/star.png')}
             style={styles.starImage}
           />
           <View style={styles.uoView}>
@@ -89,7 +89,7 @@ const Profile = () => {
               <Text style={styles.uoText}>Under or Over</Text>
               <View style={{flexDirection: 'row'}}>
                 <Image
-                  source={require('./assets/up.png')}
+                  source={require('../assets/up.png')}
                   style={{height: 30, width: 30}}
                 />
                 <Text style={styles.uoPer}>81%</Text>
@@ -99,7 +99,7 @@ const Profile = () => {
               <Text style={styles.uoText}>Top 5</Text>
               <View style={{flexDirection: 'row'}}>
                 <Image
-                  source={require('./assets/dwn.png')}
+                  source={require('../assets/dwn.png')}
                   style={{height: 30, width: 30}}
                 />
                 <Text style={styles.uoPer}>-51%</Text>

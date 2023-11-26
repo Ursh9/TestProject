@@ -11,15 +11,25 @@ import {
   Animated,
   Platform,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, {useState, useRef} from 'react';
 import fonts from '../common/fonts';
-import CustomBtn from './components/customBtn';
-
+import CustomBtn from '../components/customBtn';
+import {Picker, DatePicker} from 'react-native-wheel-pick-2';
 const Home = props => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [selected, setSelected] = useState('');
   const [numbers, setNumbers] = useState([]);
+  const [selectedNumbers, setSelectedNumbers] = useState();
+
+  if (numbers.length === 0) {
+    const newNumbers = [];
+    for (let i = 0; i <= 100; i++) {
+      newNumbers.push(i);
+    }
+    setNumbers(newNumbers);
+  }
   const openModal = item => {
     // console.log('first');
     setSelected(item);
@@ -27,6 +37,8 @@ const Home = props => {
   };
   const closeModal = () => {
     setModalVisible(false);
+    Alert.alert(`You selcted ${selectedNumbers}`);
+    console.log('selectedNumbers', typeof selectedNumbers);
   };
 
   return (
@@ -36,21 +48,21 @@ const Home = props => {
         <View style={styles.shadowContainer}>
           <View style={styles.card}>
             <ImageBackground
-              source={require('./assets/purpleBG.png')}
+              source={require('../assets/purpleBG.png')}
               style={{width: '100%', height: 104}}>
               <View style={{padding: 10}}>
                 <View style={styles.pRow}>
                   <View style={{flexDirection: 'row'}}>
                     <Text style={styles.underText}>Under or Over</Text>
                     <Image
-                      source={require('./assets/iIcon.png')}
+                      source={require('../assets/iIcon.png')}
                       style={styles.iIconStyle}
                     />
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <Text style={styles.startingStyle}>Starting in</Text>
                     <Image
-                      source={require('./assets/Clock.png')}
+                      source={require('../assets/Clock.png')}
                       style={styles.timerImg}
                     />
                     <Text style={styles.timerTxt}>03:23:12</Text>
@@ -92,14 +104,14 @@ const Home = props => {
               <View style={styles.BtnView}>
                 <CustomBtn
                   OnPress={() => openModal('Under')}
-                  LeftIcon={require('./assets/DwnArrow.png')}
+                  LeftIcon={require('../assets/DwnArrow.png')}
                   Title={'Under'}
                   bgClr={'#452C55'}
                 />
 
                 <CustomBtn
                   OnPress={() => openModal('Over')}
-                  LeftIcon={require('./assets/upArrow.png')}
+                  LeftIcon={require('../assets/upArrow.png')}
                   Title={'Over'}
                   bgClr={'#6231AD'}
                 />
@@ -109,14 +121,14 @@ const Home = props => {
               <View style={styles.innerbtmView}>
                 <View style={{flexDirection: 'row'}}>
                   <Image
-                    source={require('./assets/profile.png')}
+                    source={require('../assets/profile.png')}
                     style={{alignSelf: 'center', marginRight: 10}}
                   />
                   <Text style={styles.playerText}>355 Players</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Image
-                    source={require('./assets/mnt.png')}
+                    source={require('../assets/mnt.png')}
                     style={{alignSelf: 'center', marginRight: 10}}
                   />
                   <Text style={styles.viewCartText}>View chart</Text>
@@ -151,7 +163,17 @@ const Home = props => {
             }}>
             <Text style={styles.modalTitle}>Your Prediction is {selected}</Text>
             <Text style={styles.entery}>Entry tickets</Text>
-
+            <View>
+              {console.log(numbers)}
+              <Picker
+                style={{backgroundColor: 'white', width: '100%', height: 215}}
+                selectedValue="item0"
+                pickerData={numbers}
+                onValueChange={value => {
+                  setSelectedNumbers(value);
+                }}
+              />
+            </View>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View>
@@ -164,7 +186,7 @@ const Home = props => {
                 }}>
                 <Text style={styles.ttText}>Total</Text>
                 <Image
-                  source={require('./assets/Fill3.png')}
+                  source={require('../assets/Fill3.png')}
                   style={{
                     marginHorizontal: 8,
                   }}

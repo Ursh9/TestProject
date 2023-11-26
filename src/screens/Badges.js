@@ -12,37 +12,37 @@ import fonts from '../common/fonts';
 const Badges = () => {
   const data = [
     {
-      image: require('./assets/ListImg.png'),
+      image: require('../assets/ListImg.png'),
       heading: 'First Stripe Earned',
       desc: 'Top 10% of highest spending players in a month',
     },
     {
-      image: require('./assets/ListImg.png'),
+      image: require('../assets/ListImg.png'),
       heading: 'Born Winner',
       desc: 'Top 10% of highest spending players in a month',
     },
     {
-      image: require('./assets/ListImg.png'),
+      image: require('../assets/ListImg.png'),
       heading: 'Trader of the Month',
       desc: 'Won 7 under-over games in a row',
     },
     {
-      image: require('./assets/ListImg.png'),
+      image: require('../assets/ListImg.png'),
       heading: 'Rising Star',
       desc: 'Top 10% of highest spending players in a month',
     },
     {
-      image: require('./assets/ListImg.png'),
+      image: require('../assets/ListImg.png'),
       heading: 'Jackpot',
       desc: 'Top 10% of highest spending players in a month',
     },
     {
-      image: require('./assets/ListImg.png'),
+      image: require('../assets/ListImg.png'),
       heading: 'Impossible',
       desc: 'Top 10% of highest spending players in a month',
     },
     {
-      image: require('./assets/ListImg.png'),
+      image: require('../assets/ListImg.png'),
       heading: 'First Stripe Earned',
       desc: 'Top 10% of highest spending players in a month',
     },
